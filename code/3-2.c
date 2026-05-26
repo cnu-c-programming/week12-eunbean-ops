@@ -9,8 +9,14 @@ int main(int argc, const char* argv[]) {
     char buffer[10] = {0};
 
     FILE* fp = fopen(filename, "r");
+    if( fp==NULL)
+        return 0;
+    fscanf(fp, "%s",buffer);
+    fclose(fp);
 
+    printf("%s\n", buffer);
 
     return 0;
 }
+
 
