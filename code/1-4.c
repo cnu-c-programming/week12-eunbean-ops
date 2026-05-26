@@ -10,11 +10,11 @@ void cat(const char * filename){
         putchar(c);
     fclose(fp);
 
-    int main(int argc, const char *argv[]){
+}
+int main(int argc, const char *argv[]){
         if(argc<2)
             return 0;
 
         cat(argv[1]);
             return 0;
     }
-}
