@@ -10,7 +10,7 @@ typedef struct config {
 } Config;
 
 void config_parser(Config* config_ptr) {
-FILE* fp = fopen("config.txt", "r");
+    FILE* fp = fopen("config.txt", "r");
     if (fp == NULL) return;
 
     char line[256];
@@ -27,14 +27,16 @@ FILE* fp = fopen("config.txt", "r");
         } else if (strcmp(key, "SectionName") == 0) {
             strcpy(config_ptr->SectionName, value);
         } else if (strcmp(key, "Address") == 0) {
-            config_ptr->Address = strtoull(value, NULL, 10);
+            // 10 -> 0 으로 수정하여 16진수(0x...)도 인식 가능하게 함
+            config_ptr->Address = strtoull(value, NULL, 0); 
         }
     }
     fclose(fp);
 }
 
 int main(int argc, const char* argv[]) {
-    Config config;
+    // 0으로 안전하게 초기화 (쓰레기 값 방지)
+    Config config = {0}; 
     config_parser(&config);
 
     printf("config: %s %d %s %llu\n", 
